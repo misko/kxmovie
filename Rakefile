@@ -260,7 +260,7 @@ task :build_movie_debug do
 	FileUtils.move Pathname.new('tmp/build/Debug-iphoneos/libkxmovie.a'), Pathname.new('tmp/build/Debug-iphoneos/libkxmovie_armv7s.a')	
 
 	system_or_exit "xcodebuild -project kxmovie.xcodeproj -target kxmovie -configuration Debug -sdk iphoneos#{SDK_VERSION} build SYMROOT=#{buildDir} -arch armv7"		
-	system_or_exit "xcodebuild -project kxmovie.xcodeproj -target kxmovie -configuration Debug -sdk iphonesimulator#{SDK_VERSION} build SYMROOT=#{buildDir}"	
+	system_or_exit "xcodebuild -project kxmovie.xcodeproj -target kxmovie -configuration Debug -sdk iphonesimulator#{SDK_VERSION} build SYMROOT=#{buildDir}  -arch i386"	
 	system_or_exit "lipo -create -arch armv7 tmp/build/Debug-iphoneos/libkxmovie.a -arch armv7 tmp/build/Debug-iphoneos/libkxmovie_armv7s.a -arch i386 tmp/build/Debug-iphonesimulator/libkxmovie.a -output tmp/build/libkxmovie.a"
 end
 
@@ -271,7 +271,7 @@ task :build_movie_release do
 	FileUtils.move Pathname.new('tmp/build/Release-iphoneos/libkxmovie.a'), Pathname.new('tmp/build/Release-iphoneos/libkxmovie_armv7s.a')	
 
 	system_or_exit "xcodebuild -project kxmovie.xcodeproj -target kxmovie -configuration Release -sdk iphoneos#{SDK_VERSION} build SYMROOT=#{buildDir} -arch armv7"	
-	system_or_exit "xcodebuild -project kxmovie.xcodeproj -target kxmovie -configuration Debug -sdk iphonesimulator#{SDK_VERSION} build SYMROOT=#{buildDir}"	
+	system_or_exit "xcodebuild -project kxmovie.xcodeproj -target kxmovie -configuration Debug -sdk iphonesimulator#{SDK_VERSION} build SYMROOT=#{buildDir} -arch i386"	
 	system_or_exit "lipo -create -arch armv7 tmp/build/Release-iphoneos/libkxmovie.a -arch armv7 tmp/build/Release-iphoneos/libkxmovie_armv7s.a -arch i386 tmp/build/Debug-iphonesimulator/libkxmovie.a -output tmp/build/libkxmovie.a"
 	
 	#FileUtils.copy Pathname.new('tmp/build/Release-iphoneos/libkxmovie.a'), buildDir
